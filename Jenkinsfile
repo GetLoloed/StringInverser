@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'make'
+                        sh 'make '
                     } else {
                         bat 'make'
                     }
