@@ -29,9 +29,23 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'make clean'
+                        sh '''
+                            make clean || true
+                            if [ -d StringInverser ]; then
+                                rm -rf StringInverser
+                            fi
+                        '''
                     } else {
-                        bat 'make clean'
+                        bat '''
+                            make clean || exit 0
+                            if exist StringInverser (
+                                if exist StringInverser\\NUL (
+                                    rmdir /s /q StringInverser
+                                ) else (
+                                    del StringInverser
+                                )
+                            )
+                        '''
                     }
                 }
             }
