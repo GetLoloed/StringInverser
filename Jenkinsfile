@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'make '
+                        sh 'make'
                     } else {
                         bat 'make'
                     }
@@ -29,23 +29,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh '''
-                            make clean || true
-                            if [ -d StringInverser ]; then
-                                rm -rf StringInverser
-                            fi
-                        '''
+                        sh 'make clean'
                     } else {
-                        bat '''
-                            make clean || exit 0
-                            if exist StringInverser (
-                                if exist StringInverser\\NUL (
-                                    rmdir /s /q StringInverser
-                                ) else (
-                                    del StringInverser
-                                )
-                            )
-                        '''
+                        bat 'make clean'
                     }
                 }
             }

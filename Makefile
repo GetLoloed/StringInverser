@@ -1,16 +1,16 @@
-# Définition du compilateur
+# Makefile
+
 CC = gcc
-# Flags de compilation
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -Werror
+TARGET = StringInverser
 
-# Cible par défaut
-all: StringInverser
+all: $(TARGET)
 
-# Règle pour compiler StringInverser
-StringInverser: StringInverser.c
-	$(CC) $(CFLAGS) -o StringInverser StringInverser.c
+$(TARGET): $(TARGET).o
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).o
 
-# Règle pour nettoyer les fichiers générés
+$(TARGET).o: $(TARGET).c
+	$(CC) $(CFLAGS) -c $(TARGET).c
+
 clean:
-	rm -f StringInverser
-	if [ -d StringInverser ]; then rm -rf StringInverser; fi
+	rm -f $(TARGET) $(TARGET).o
