@@ -13,4 +13,4 @@ StringInverser: StringInverser.c
 # Règle pour nettoyer les fichiers générés
 clean:
 	rm -f StringInverser
-	[ ! -d StringInverser ] || rm -rf StringInverser
+	if [ -d StringInverser ]; then rm -rf StringInverser; fi
