@@ -2,13 +2,27 @@ pipeline {
     agent any
 
     stages {
+        stage('Clonage') {
+            steps {
+                script {
+                    // Cloner le dépôt GitHub
+                    if (isUnix()) {
+                        sh 'git clone https://github.com/csurqunix/StringInverser.git'
+                    } else {
+                        bat 'git clone https://github.com/csurqunix/StringInverser.git'
+                    }
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
+                    // Compiler le programme
                     if (isUnix()) {
-                        sh 'make'
+                        sh 'cd StringInverser && make'
                     } else {
-                        bat 'make'
+                        bat 'cd StringInverser && make'
                     }
                 }
             }
@@ -20,7 +34,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'chmod +x StringInverser'
+                    sh 'cd StringInverser && chmod +x StringInverser'
                 }
             }
         }
@@ -29,9 +43,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'make clean'
+                        sh 'cd StringInverser && make clean'
                     } else {
-                        bat 'make clean'
+                        bat 'cd StringInverser && make clean'
                     }
                 }
             }
